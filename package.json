@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build-gh": "ng build --base-href https://indra4you.github.io/iDataEditor/"
+    "build-gh-pages": "ng build --base-href https://indra4you.github.io/iDataEditor/"
   },
   "dependencies": {
     "@angular/common": "^14.2.3",
