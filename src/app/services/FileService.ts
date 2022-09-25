@@ -1,5 +1,3 @@
-import { environment } from '@environments/environment';
-
 import {
     FileHandleInvalidError,
     FileReadFailedError,
@@ -12,27 +10,23 @@ export class FileService {
         keepExistingData: false
     }
 
-    protected static get isHandleNull(
+    protected static getIsHandleValid(
     ): boolean {
-        if (!environment.production) {
-            return false;
+        return this._handle !== null;
+    }
+
+    private static validateHandle(
+    ): void {
+        if (!this.getIsHandleValid()) {
+            throw new FileHandleInvalidError();
         }
-
-        return this._handle === null;
     }
 
-    public static get haveValidHandle(
-    ): boolean {
-        return !this.isHandleNull;
-    }
-
-    public static get fileName(
+    protected static getFileName(
     ): string {
-        if (environment.production) {
-            return this._handle!.name;
-        }
+        this.validateHandle();
 
-        return '(In Memory)';
+        return this._handle!.name;
     }
 
     public static setHandle(
@@ -43,9 +37,7 @@ export class FileService {
 
     protected static async read(
     ): Promise<string> {
-        if (this.isHandleNull) {
-            throw new FileHandleInvalidError();
-        }
+        this.validateHandle();
 
         try {
             const file: File = await this._handle!.getFile();
@@ -61,9 +53,7 @@ export class FileService {
     protected static async write(
         value: string
     ): Promise<void> {
-        if (this.isHandleNull) {
-            throw new FileHandleInvalidError();
-        }
+        this.validateHandle();
 
         try {
             const writableStream: FileSystemWritableFileStream = await this._handle!.createWritable(this._fileWritableOptions);

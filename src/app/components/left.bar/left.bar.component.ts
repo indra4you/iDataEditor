@@ -10,8 +10,8 @@ import {
     styleUrls: [ './left.bar.component.scss' ]
 })
 export class LeftBarComponent {
-    public get haveValidHandle(
+    public get showNavItems(
     ): boolean {
-        return DataService.haveValidHandle;
+        return DataService.isInDevelopment() || DataService.isHandleValid;
     }
 }

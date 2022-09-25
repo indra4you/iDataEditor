@@ -34,6 +34,25 @@ export class DataService extends FileService {
         await super.write(jsonString);
     }
 
+    public static isInDevelopment(
+    ): boolean {
+        return !environment.production;
+    }
+
+    public static get isHandleValid(
+    ): boolean {
+        return super.getIsHandleValid();
+    }
+
+    public static get fileName(
+    ): string {
+        if (this.isInDevelopment()) {
+            return '(In Memory)'
+        }
+
+        return super.getFileName();
+    }
+
     public static async init(
     ): Promise<void> {
         const root: RootModel = {
@@ -42,12 +61,18 @@ export class DataService extends FileService {
             agents: []
         }
 
+        if (this.isInDevelopment()) {
+            this._root = root;
+
+            return;
+        }
+
         await this.save(root);
     }
 
     protected static async getRoot(
     ): Promise<RootModel> {
-        if (!environment.production) {
+        if (this.isInDevelopment()) {
             return this._root;
         }
 
@@ -59,7 +84,7 @@ export class DataService extends FileService {
     protected static async saveRoot(
         root: RootModel
     ): Promise<void> {
-        if (!environment.production) {
+        if (this.isInDevelopment()) {
             this._root = root;
 
             return;

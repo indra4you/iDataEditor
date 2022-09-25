@@ -16,12 +16,14 @@ export class HomePage implements AfterViewInit {
 
     ngAfterViewInit(
     ): void {
-        if (!DataService.haveValidHandle) {
-            setTimeout(() => {
-                this.router.navigate([
-                    '/file'
-                ]);
-            }, 500);
+        if (DataService.isInDevelopment() || DataService.isHandleValid) {
+            return;
         }
+
+        setTimeout(() => {
+            this.router.navigate([
+                '/file'
+            ]);
+        }, 500);
     }
 }

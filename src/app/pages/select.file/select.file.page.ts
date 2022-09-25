@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import {
@@ -8,7 +8,7 @@ import {
 @Component({
     templateUrl: './select.file.page.html'
 })
-export class SelectFilePage {
+export class SelectFilePage implements AfterViewInit {
     private filePickerOption: SaveFilePickerOptions = {
         types: [{
             description: 'iData Files',
@@ -19,6 +19,17 @@ export class SelectFilePage {
     constructor(
         private readonly router: Router
     ) {
+    }
+
+    ngAfterViewInit(
+    ): void {
+        if (DataService.isInDevelopment()) {
+            setTimeout(() => {
+                this.router.navigate([
+                    '/'
+                ]);
+            }, 500);
+        }
     }
 
     public async onNewClicked(

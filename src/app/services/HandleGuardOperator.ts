@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
-import { environment } from '@environments/environment';
 
 import {
-    FileService,
-} from './FileService';
+    DataService,
+} from './DataService';
 
 @Injectable({
     providedIn: 'root'
@@ -26,10 +25,6 @@ export class HandleGaurdOperator implements CanActivate, CanActivateChild {
         _: ActivatedRouteSnapshot,
         __: RouterStateSnapshot
     ): boolean {
-        if (!environment.production) {
-            return true;
-        }
-        
-        return FileService.haveValidHandle;
+        return DataService.isInDevelopment() || DataService.isHandleValid;
     }
 }
