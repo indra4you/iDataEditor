@@ -1,0 +1,14 @@
+<div class="row g-0">
+    <app-left-bar class="col-md-3 col-lg-2 d-md-block left-bar collapse text-bg-dark"></app-left-bar>
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-2 pt-3">
+        <div class="text-end text-muted text-lead">
+            <i class="bi bi-file-earmark-text"></i>
+            <span class="ms-2">{{ fileName }}</span>
+        </div>
+
+        <router-outlet></router-outlet>
+
+        <app-footer></app-footer>
+    </main>
+</div>

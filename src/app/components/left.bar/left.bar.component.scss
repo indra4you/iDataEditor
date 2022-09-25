@@ -1,0 +1,24 @@
+$nav-link-bg-color: #fff;
+$nav-link-bg-color-active: rgb(33, 37, 41);
+$nav-border-radius: 0.375rem;
+
+.nav-link {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    color: $nav-link-bg-color;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+    background-color: $nav-link-bg-color;
+    border-bottom-left-radius: $nav-border-radius !important;
+    border-top-left-radius: $nav-border-radius !important;
+    color: $nav-link-bg-color-active;
+}
+
+.nav-link.active {
+    background-color: $nav-link-bg-color;
+    border-bottom-left-radius: $nav-border-radius !important;
+    border-top-left-radius: $nav-border-radius !important;
+    color: $nav-link-bg-color-active;
+}

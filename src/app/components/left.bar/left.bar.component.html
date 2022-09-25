@@ -1,0 +1,30 @@
+<div class="position-sticky">
+    <div class="fs-2 py-1 ps-3">
+        iData Editor
+    </div>
+
+    <div id="leftbarMenu">
+        <hr class="my-1">
+
+        <nav *ngIf="haveValidHandle" class="nav flex-column ms-2 mt-3">
+            <a routerLink="/home" routerLinkActive="active" class="nav-link">
+                <i class="bi bi-house"></i>
+                <span class="ms-2">Home</span>
+            </a>
+        </nav>
+
+        <div>
+            <h6 class="px-3 mt-4 mb-2 text-muted text-uppercase fs-6 fw-bold">
+                <i class="bi bi-building pe-1"></i>
+                <span class="ms-2">Masters</span>
+            </h6>
+
+            <nav class="nav flex-column ms-2">
+                <a routerLink="/agents" routerLinkActive="active" class="nav-link">
+                    <i class="bi bi-people"></i>
+                    <span class="ms-2">Agents</span>
+                </a>
+            </nav>
+        </div>
+    </div>
+</div>
