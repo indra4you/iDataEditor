@@ -3,7 +3,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "idata.editor": {
+        "idataeditor": {
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:component": {
@@ -20,7 +20,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-                        "outputPath": "./dist",
+                        "outputPath": "./dist/iDataEditor",
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
@@ -74,15 +74,15 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "browserTarget": "idata.editor:build",
+                        "browserTarget": "idataeditor:build",
                         "port": 5001
                     },
                     "configurations": {
                         "production": {
-                            "browserTarget": "idata.editor:build:production"
+                            "browserTarget": "idataeditor:build:production"
                         },
                         "development": {
-                            "browserTarget": "idata.editor:build:development"
+                            "browserTarget": "idataeditor:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
