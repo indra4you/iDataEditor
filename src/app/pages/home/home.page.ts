@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import {
     DataService,
+    HelperService,
 } from '@app/services';
 
 @Component({
@@ -16,6 +17,16 @@ export class HomePage implements AfterViewInit {
 
     ngAfterViewInit(
     ): void {
+        if (!HelperService.haveFileSystemFileHandleFeature) {
+            setTimeout(() => {
+                this.router.navigate([
+                    '/notSupported'
+                ]);
+            }, 500);
+
+            return;
+        }
+
         if (DataService.isInDevelopment() || DataService.isHandleValid) {
             return;
         }

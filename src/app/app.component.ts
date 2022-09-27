@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import {
+    HelperService,
     DataService,
 } from '@app/services';
 
@@ -11,7 +12,7 @@ import {
 export class AppComponent {
     public get showFileName(
     ): boolean {
-        return DataService.isInDevelopment() || DataService.isHandleValid;
+        return HelperService.haveFileSystemFileHandleFeature && (DataService.isInDevelopment() || DataService.isHandleValid);
     }
 
     public get fileName(

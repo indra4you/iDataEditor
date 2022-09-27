@@ -12,6 +12,7 @@ import {
 
 import {
     NotFoundPage,
+    NotSupportedBrowserPage,
     HomePage,
     SelectFilePage,
     AgentsPage,
@@ -26,6 +27,7 @@ import {
         LeftBarComponent,
         FooterComponent,
         NotFoundPage,
+        NotSupportedBrowserPage,
         HomePage,
         SelectFilePage,
         AgentsPage,

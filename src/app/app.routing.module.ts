@@ -7,6 +7,7 @@ import {
 
 import {
     NotFoundPage,
+    NotSupportedBrowserPage,
     HomePage,
     SelectFilePage,
     AgentsPage,
@@ -14,6 +15,8 @@ import {
 
 const routes: Routes = [
     { path: 'home', component: HomePage },
+
+    { path: 'notSupported', component: NotSupportedBrowserPage },
 
     // TODO: Add Guard to check file handle
     { path: 'file', component: SelectFilePage },

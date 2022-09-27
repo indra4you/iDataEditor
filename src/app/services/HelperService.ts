@@ -1,4 +1,9 @@
 export class HelperService {
+    public static get haveFileSystemFileHandleFeature(
+    ): boolean {
+        return "showOpenFilePicker" in window;
+    }
+    
     public static get newGuid(
     ): string {
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {

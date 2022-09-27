@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import {
+    HelperService,
     DataService,
 } from '@app/services';
 
@@ -12,6 +13,6 @@ import {
 export class LeftBarComponent {
     public get showNavItems(
     ): boolean {
-        return DataService.isInDevelopment() || DataService.isHandleValid;
+        return HelperService.haveFileSystemFileHandleFeature && (DataService.isInDevelopment() || DataService.isHandleValid);
     }
 }
