@@ -5,6 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start-prod": "ng serve --configuration production",
     "build": "ng build",
     "build-gh-pages": "ng build --base-href https://indra4you.github.io/iDataEditor/"
   },

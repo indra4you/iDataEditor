@@ -1,3 +1,8 @@
+@import "../node_modules/bootstrap/scss/functions";
+
+@import "../node_modules/bootstrap/scss/variables";
+
+$body-bg: $gray-100;
 $enable-shadows: true;
 $enable-gradients: true;
 
@@ -5,13 +10,4 @@ $enable-gradients: true;
 
 body {
     margin: 0;
-}
-
-.left-bar {
-    position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    z-index: 100;
-    transition: all 0.3s;
 }

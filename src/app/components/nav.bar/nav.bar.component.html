@@ -1,0 +1,80 @@
+<nav class="navbar navbar-expand-lg navbar-dark text-bg-primary">
+    <div class="container">
+        <span class="navbar-brand mb-0 h1">
+            <i class="bi bi-hdd-rack"></i>
+            <span class="ms-2">iData Editor</span>
+        </span>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div *ngIf="haveFileHandle" id="navbarContent" class="collapse navbar-collapse">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a [routerLink]="['dashboard']" class="nav-link active">
+                        <i class="bi bi-display"></i>
+                        <span class="ms-2">Dashboard</span>
+                    </a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link active dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-collection"></i>
+                        <span class="ms-2 me-1">Masters</span>
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a [routerLink]="['/masters/agents']" class="dropdown-item">
+                                <span class="ms-2">Agents</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul *ngIf="canChangeFileHandle; else showFileName" class="d-flex navbar-nav">
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link active dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <abbr title="iData File">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span class="ms-2 me-1">{{ fileName }}</span>
+                        </abbr>
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <button (click)="switchFileClicked()" class="dropdown-item">
+                                <i class="bi bi-phone-flip"></i>
+                                <span class="ms-2">Change File</span>
+                            </button>
+                        </li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <button (click)="closeFileClicked()" class="dropdown-item">
+                                <i class="bi bi-door-closed"></i>
+                                <span class="ms-2">Close File</span>
+                            </button>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ng-template #showFileName class="d-flex">
+                <abbr title="iData File">
+                    <i class="bi bi-file-earmark-text"></i>
+                    <span class="ms-2">{{ fileName }}</span>
+                </abbr>
+            </ng-template>
+        </div>
+    </div>
+</nav>
