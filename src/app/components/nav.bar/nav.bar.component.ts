@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import {
+    FileSystemService,
     DataService,
 } from '@app/services';
 
@@ -11,35 +12,49 @@ import {
 })
 export class NavBarComponent {
     constructor(
-        private readonly _router: Router,
-        private readonly _dataService: DataService,
+        private readonly _router: Router
     ) {
-    }
-
-    public get canChangeFileHandle(
-    ): boolean {
-        return this._dataService.canChangeFileHandle;
     }
 
     public get haveFileHandle(
     ): boolean {
-        return this._dataService.haveFileHandle;
+        return FileSystemService.haveFileHandle;
     }
 
     public get fileName(
     ): string {
-        return this._dataService.fileName;
+        return DataService.fileName;
     }
 
-    public switchFileClicked(
-    ): void {
-        this._router.navigate(['/file']);
+    public async saveClicked(
+    ): Promise<void> {
+        if (FileSystemService.haveFileHandle) {
+            return;
+        }
+
+        const result: boolean = await FileSystemService.createFile();
+        if (result) {
+            await DataService.saveAsRoot();
+        }
     }
 
-    public closeFileClicked(
-    ): void {
-        this._dataService.setFileHandle(null);
+    public async openClicked(
+    ): Promise<void> {
+        const result: boolean = await FileSystemService.openFile();
 
-        this._router.navigate(['/file']);
+        if (result) {
+            this._router.navigate(['/']);
+        }
+    }
+
+    public closeClicked(
+    ): void {
+        if (!FileSystemService.haveFileHandle) {
+            return;
+        }
+
+        FileSystemService.closeFile();
+
+        this._router.navigate(['/']);
     }
 }

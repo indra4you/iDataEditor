@@ -1,0 +1,121 @@
+<div class="offcanvas offcanvas-end show" tabindex="-1" aria-modal="true" role="dialog">
+    <div class="offcanvas-header text-bg-primary">
+        <h5 class="offcanvas-title">Update Family Member</h5>
+    </div>
+
+    <div class="offcanvas-body">
+        <div *ngIf="!haveData; else showForm" class="placeholder-glow">
+            <div class="mb-3">
+                <label for="firstName" class="form-label">First Name</label>
+
+                <span class="col-12 placeholder"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="lastName" class="form-label">Last Name</label>
+
+                <span class="col-12 placeholder"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="emailAddress" class="form-label">Email Address</label>
+
+                <span class="col-12 placeholder"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="mobileNumber" class="form-label">Mobile Number</label>
+
+                <span class="col-12 placeholder"></span>
+            </div>
+
+            <button type="button" disabled class="btn btn-primary col-3 placeholder">
+            </button>
+
+            <button type="button" disabled class="btn btn-secondary ms-2 col-4 placeholder">
+            </button>
+        </div>
+
+        <ng-template #showForm>
+            <div *ngIf="haveError" class="alert alert-danger" role="alert">
+                <div class="row">
+                    <div class="col-1">
+                        <i class="bi bi-patch-exclamation"></i>
+                    </div>
+
+                    <div class="col-11">
+                        {{ errorMessage }}
+                    </div>
+                </div>
+            </div>
+
+            <form [formGroup]="formGroup" (ngSubmit)="onSubmitClicked()">
+                <fieldset [disabled]="isSaving">
+                    <div class="mb-3">
+                        <label for="firstName" class="form-label">First Name</label>
+
+                        <input type="text" formControlName="firstName" id="firstName" #firstName
+                            class="form-control" [ngClass]="{ 'is-invalid': fc.firstName.errors, 'is-valid': fc.firstName.valid }"
+                            placeholder="First Name">
+                        
+                        <div *ngIf="fc.firstName.errors" class="invalid-feedback">
+                            <div *ngIf="fc.firstName.errors.required">First Name is required</div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="lastName" class="form-label">Last Name</label>
+
+                        <input type="text" formControlName="lastName" id="lastName"
+                            class="form-control" [ngClass]="{ 'is-invalid': fc.lastName.errors, 'is-valid': fc.lastName.valid }"
+                            placeholder="Last Name">
+                        
+                        <div *ngIf="fc.lastName.errors" class="invalid-feedback">
+                            <div *ngIf="fc.lastName.errors.required">Last Name is required</div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="emailAddress" class="form-label">Email Address</label>
+
+                        <input type="email" formControlName="emailAddress" id="emailAddress"
+                            class="form-control" [ngClass]="{ 'is-invalid': fc.emailAddress.touched && fc.emailAddress.errors, 'is-valid': fc.emailAddress.touched && fc.emailAddress.valid }"
+                            placeholder="Email Address" inputmode="email">
+                        
+                        <div *ngIf="fc.emailAddress.touched && fc.emailAddress.errors" class="invalid-feedback">
+                            <div *ngIf="fc.emailAddress.errors.email">Email Address is not valid</div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="mobileNumber" class="form-label">Mobile Number</label>
+
+                        <input type="tel" formControlName="mobileNumber" id="mobileNumber"
+                            class="form-control" [ngClass]="{ 'is-invalid': fc.mobileNumber.touched && fc.mobileNumber.errors, 'is-valid': fc.mobileNumber.touched && fc.mobileNumber.valid }"
+                            placeholder="Mobile Number" inputmode="tel">
+                        
+                        <div *ngIf="fc.mobileNumber.touched && fc.mobileNumber.errors" class="invalid-feedback">
+                            <div *ngIf="fc.mobileNumber.errors.minLength || fc.mobileNumber.errors.maxLength">Mobile Number is not valid</div>
+                        </div>
+                    </div>
+
+                    <button type="submit" [disabled]="formGroup.invalid" class="btn btn-primary">
+                        <i class="bi bi-hdd"></i>
+                        <span class="ms-2">Save</span>
+                    </button>
+
+                    <button type="button" (click)="onCancelClicked()" class="btn btn-outline-secondary ms-2">
+                        <i class="bi bi-x-lg"></i>
+                        <span class="ms-2">Cancel</span>
+                    </button>
+
+                    <div *ngIf="isSaving" class="spinner-grow spinner-grow-sm ms-2" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </fieldset>
+            </form>
+        </ng-template>
+    </div>
+</div>
+
+<div class="offcanvas-backdrop fade show"></div>

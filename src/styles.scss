@@ -2,6 +2,17 @@
 
 @import "../node_modules/bootstrap/scss/variables";
 
+$theme-colors: (
+  "primary":    $purple,
+  "secondary":  $secondary,
+  "success":    $success,
+  "info":       $info,
+  "warning":    $warning,
+  "danger":     $danger,
+  "light":      $light,
+  "dark":       $dark
+);
+
 $body-bg: $gray-100;
 $enable-shadows: true;
 $enable-gradients: true;

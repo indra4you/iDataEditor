@@ -1,52 +1,52 @@
 import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { DataServiceAgents } from '../../data.service.agents';
+import { DataServiceFamilyMembers } from '../../data.service.family.members';
 
 import {
     DataNotFoundError,
 } from '@app/errors';
 
 import {
-    AgentModel,
+    FamilyMemberModel,
 } from '@app/services';
 
 @Component({
-    selector: 'masters-agent-delete',
+    selector: 'masters-family-member-delete',
     templateUrl: './delete.component.html'
 })
-export class MastersAgentDeleteComponent implements AfterViewInit {
-    @Input('agentId')
-    public agentId: string;
+export class MastersFamilyMemberDeleteComponent implements AfterViewInit {
+    @Input('familyMemberId')
+    public familyMemberId: string;
 
     @Output('onClose')
     public onClose: EventEmitter<boolean> = new EventEmitter(true);
 
-    public agent: AgentModel | null = null;
-    private isLoadingAgent: boolean = false;
+    public familyMember: FamilyMemberModel | null = null;
+    private isLoadingFamilyMember: boolean = false;
     public isSaving: boolean = false;
     public errorMessage: string = '';
 
     public ngAfterViewInit(
     ): void {
         setTimeout(() => {
-            this.loadAgent();
+            this.loadFamilyMember();
         }, 500);
     }
 
-    private async loadAgent(
+    private async loadFamilyMember(
     ): Promise<void> {
-        this.isLoadingAgent = true;
+        this.isLoadingFamilyMember = true;
 
         try {
-            this.agent = await DataServiceAgents.getById(this.agentId);
+            this.familyMember = await DataServiceFamilyMembers.getById(this.familyMemberId);
         } finally {
-            this.isLoadingAgent = false;
+            this.isLoadingFamilyMember = false;
         }
     }
 
     public get haveData(
     ): boolean {
-        return !this.isLoadingAgent && this.agent !== null;
+        return !this.isLoadingFamilyMember && this.familyMember !== null;
     }
 
     public get haveError(
@@ -64,12 +64,12 @@ export class MastersAgentDeleteComponent implements AfterViewInit {
         this.isSaving = true;
 
         try {
-            await DataServiceAgents.delete(this.agentId);
+            await DataServiceFamilyMembers.delete(this.familyMemberId);
 
             this.onClose.emit(true);
         } catch (error) {
             if (error instanceof DataNotFoundError) {
-                this.errorMessage = `Agent with ID '${this.agentId}' not found`;
+                this.errorMessage = `Family Member with ID '${this.familyMemberId}' not found`;
             }
         } finally {
             this.isSaving = false;

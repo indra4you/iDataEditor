@@ -6,8 +6,8 @@
             </li>
 
             <li class="breadcrumb-item" aria-current="page">
-                Agents
-                <button *ngIf="!isLoadingAgents" type="button" (click)="onCreateClicked()" class="border-0 bg-transparent text-primary ms-2">
+                Family Members
+                <button *ngIf="!isLoadingFamilyMembers" type="button" (click)="onCreateClicked()" class="border-0 bg-transparent text-primary ms-2">
                     <i class="bi bi-plus-circle-dotted"></i>
                 </button>
             </li>
@@ -34,7 +34,7 @@
                 </tr>
             </thead>
 
-            <tbody *ngIf="isLoadingAgents; else showData" class="table-group-divider placeholder-glow">
+            <tbody *ngIf="isLoadingFamilyMembers; else showData" class="table-group-divider placeholder-glow">
                 <tr>
                     <td colspan="5">
                         <span class="col-12 placeholder"></span>
@@ -44,18 +44,18 @@
 
             <ng-template #showData>
                 <tbody *ngIf="haveData; else noData" class="table-group-divider">
-                    <tr *ngFor="let agent of agentList; index as i">
+                    <tr *ngFor="let familyMember of familyMemberList; index as i">
                         <th scope="row" class="text-end">{{ i + 1 }}.</th>
-                        <td>{{ agent.name.first }} {{ agent.name.last }}</td>
-                        <td>{{ agent.emailAddresses !== null && agent.emailAddresses.length > 0 ? agent.emailAddresses[0] : '' }}</td>
-                        <td>{{ agent.contactNumbers !== null && agent.contactNumbers.length > 0 ? agent.contactNumbers[0] : '' }}</td>
+                        <td>{{ familyMember.name.first }} {{ familyMember.name.last }}</td>
+                        <td>{{ familyMember.emailAddresses !== null && familyMember.emailAddresses.length > 0 ? familyMember.emailAddresses[0] : '' }}</td>
+                        <td>{{ familyMember.contactNumbers !== null && familyMember.contactNumbers.length > 0 ? familyMember.contactNumbers[0] : '' }}</td>
                         <td class="text-end">
                             <div class="btn-group">
-                                <button type="button" (click)="onUpdateClicked(agent.id)" class="btn btn-outline-primary shadow-none border-0">
+                                <button type="button" (click)="onUpdateClicked(familyMember.id)" class="btn btn-outline-primary shadow-none border-0">
                                     <i class="bi bi-pencil"></i>
                                 </button>
     
-                                <button type="button" (click)="onDeleteClicked(agent.id)" class="btn btn-outline-danger shadow-none border-0">
+                                <button type="button" (click)="onDeleteClicked(familyMember.id)" class="btn btn-outline-danger shadow-none border-0">
                                     <i class="bi bi-trash3"></i>
                                 </button>
                             </div>
@@ -71,7 +71,7 @@
                                 <button type="button" (click)="onCreateClicked()" class="border-0 bg-transparent text-primary">
                                     <i class="bi bi-plus-circle-dotted text-primary"></i>
                                 </button>
-                                to create an agent
+                                to create an family member
                             </td>
                         </tr>
                     </tbody>
@@ -81,8 +81,8 @@
     </div>
 </section>
 
-<masters-agent-create *ngIf="showCreateForm" (onClose)="onCreateClosed($event)"></masters-agent-create>
+<masters-family-member-create *ngIf="showCreateForm" (onClose)="onCreateClosed($event)"></masters-family-member-create>
 
-<masters-agent-update *ngIf="showUpdateForm" [agentId]="selectedAgentId!" (onClose)="onUpdateClosed($event)"></masters-agent-update>
+<masters-family-member-update *ngIf="showUpdateForm" [familyMemberId]="selectedFamilyMemberId!" (onClose)="onUpdateClosed($event)"></masters-family-member-update>
 
-<masters-agent-delete *ngIf="showDeleteConfirmation" [agentId]="selectedAgentId!" (onClose)="onDeleteClosed($event)"></masters-agent-delete>
+<masters-family-member-delete *ngIf="showDeleteConfirmation" [familyMemberId]="selectedFamilyMemberId!" (onClose)="onDeleteClosed($event)"></masters-family-member-delete>

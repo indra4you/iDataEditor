@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { RoutingModule } from '@app/routing';
+import { AppRoutingModule } from '@app/app.routing.module';
 import { AppComponent } from '@app/app.component';
 
 import {
@@ -11,13 +11,15 @@ import {
 
 import {
     NotFoundPage,
-    NotSupportedPage,
-    FileSelectPage,
     DashboardPage,
     MastersAgentsPage,
     MastersAgentCreateComponent,
     MastersAgentUpdateComponent,
     MastersAgentDeleteComponent,
+    MastersFamilyMembersPage,
+    MastersFamilyMemberCreateComponent,
+    MastersFamilyMemberUpdateComponent,
+    MastersFamilyMemberDeleteComponent,
 } from '@app/pages';
 
 @NgModule({
@@ -25,18 +27,20 @@ import {
         AppComponent,
         NavBarComponent,
         NotFoundPage,
-        NotSupportedPage,
-        FileSelectPage,
         DashboardPage,
         MastersAgentsPage,
         MastersAgentCreateComponent,
         MastersAgentUpdateComponent,
         MastersAgentDeleteComponent,
+        MastersFamilyMembersPage,
+        MastersFamilyMemberCreateComponent,
+        MastersFamilyMemberUpdateComponent,
+        MastersFamilyMemberDeleteComponent,
     ],
     imports: [
         BrowserModule,
         ReactiveFormsModule,
-        RoutingModule,
+        AppRoutingModule,
     ],
     bootstrap: [
         AppComponent,

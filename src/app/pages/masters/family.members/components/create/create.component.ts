@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { DataServiceAgents } from '../../data.service.agents';
+import { DataServiceFamilyMembers } from '../../data.service.family.members';
 
 import {
     DataNotUniqueError,
@@ -12,10 +12,10 @@ import {
 } from '@app/services';
 
 @Component({
-    selector: 'masters-agent-create',
+    selector: 'masters-family-member-create',
     templateUrl: './create.component.html'
 })
-export class MastersAgentCreateComponent implements OnInit, AfterViewInit {
+export class MastersFamilyMemberCreateComponent implements OnInit, AfterViewInit {
     @Output('onClose')
     public onClose: EventEmitter<boolean> = new EventEmitter(true);
 
@@ -67,7 +67,7 @@ export class MastersAgentCreateComponent implements OnInit, AfterViewInit {
         this.isSaving = true;
 
         try {
-            await DataServiceAgents.create({
+            await DataServiceFamilyMembers.create({
                 id: HelperService.newGuid,
                 name: {
                     first: this.fc.firstName.value,
@@ -86,7 +86,7 @@ export class MastersAgentCreateComponent implements OnInit, AfterViewInit {
             this.onClose.emit(true);
         } catch (error) {
             if (error instanceof DataNotUniqueError) {
-                this.errorMessage = `Agent with Name '${this.fc.firstName.value} ${this.fc.lastName.value}' already exists`;
+                this.errorMessage = `Family Member with Name '${this.fc.firstName.value} ${this.fc.lastName.value}' already exists`;
             }
         } finally {
             this.isSaving = false;

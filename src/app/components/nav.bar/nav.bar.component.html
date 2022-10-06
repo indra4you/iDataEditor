@@ -9,7 +9,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div *ngIf="haveFileHandle" id="navbarContent" class="collapse navbar-collapse">
+        <div id="navbarContent" class="collapse navbar-collapse">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a [routerLink]="['dashboard']" class="nav-link active">
@@ -27,54 +27,57 @@
                     <ul class="dropdown-menu">
                         <li>
                             <a [routerLink]="['/masters/agents']" class="dropdown-item">
+                                <i class="bi bi-person-workspace"></i>
                                 <span class="ms-2">Agents</span>
                             </a>
                         </li>
 
                         <li>
-                            <hr class="dropdown-divider">
+                            <a [routerLink]="['/masters/family.members']" class="dropdown-item">
+                                <i class="bi bi-people"></i>
+                                <span class="ms-2">Family Members</span>
+                            </a>
                         </li>
                     </ul>
                 </li>
             </ul>
 
-            <ul *ngIf="canChangeFileHandle; else showFileName" class="d-flex navbar-nav">
+            <ul class="navbar-nav d-flex">
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link active dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <abbr title="iData File">
-                            <i class="bi bi-file-earmark-text"></i>
-                            <span class="ms-2 me-1">{{ fileName }}</span>
+                            <span class="ms-2">{{ fileName }}</span>
                         </abbr>
                     </a>
 
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li>
-                            <button (click)="switchFileClicked()" class="dropdown-item">
-                                <i class="bi bi-phone-flip"></i>
-                                <span class="ms-2">Change File</span>
+                        <li *ngIf="!haveFileHandle">
+                            <button type="button" (click)="saveClicked()" class="dropdown-item">
+                                <i class="bi bi-download"></i>
+                                <span class="ms-2">Save to File</span>
                             </button>
                         </li>
 
                         <li>
+                            <button type="button" (click)="openClicked()" class="dropdown-item">
+                                <i class="bi bi-upload"></i>
+                                <span class="ms-2">Open File</span>
+                            </button>
+                        </li>
+
+                        <li *ngIf="haveFileHandle">
                             <hr class="dropdown-divider">
                         </li>
 
-                        <li>
-                            <button (click)="closeFileClicked()" class="dropdown-item">
-                                <i class="bi bi-door-closed"></i>
+                        <li *ngIf="haveFileHandle">
+                            <button type="button" (click)="closeClicked()" class="dropdown-item">
+                                <i class="bi bi-x-octagon"></i>
                                 <span class="ms-2">Close File</span>
                             </button>
                         </li>
                     </ul>
                 </li>
             </ul>
-
-            <ng-template #showFileName class="d-flex">
-                <abbr title="iData File">
-                    <i class="bi bi-file-earmark-text"></i>
-                    <span class="ms-2">{{ fileName }}</span>
-                </abbr>
-            </ng-template>
         </div>
     </div>
 </nav>

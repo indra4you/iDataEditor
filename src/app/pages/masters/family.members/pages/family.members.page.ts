@@ -1,43 +1,43 @@
 import { AfterViewInit, Component } from '@angular/core';
 
-import { DataServiceAgents } from '../data.service.agents';
+import { DataServiceFamilyMembers } from '../data.service.family.members';
 
 import {
-    AgentModel,
+    FamilyMemberModel,
 } from '@app/services';
 
 @Component({
-    templateUrl: './agents.page.html'
+    templateUrl: './family.members.page.html'
 })
-export class MastersAgentsPage implements AfterViewInit {
-    public agentList: AgentModel[] = [];
-    public isLoadingAgents: boolean = true;
+export class MastersFamilyMembersPage implements AfterViewInit {
+    public familyMemberList: FamilyMemberModel[] = [];
+    public isLoadingFamilyMembers: boolean = true;
     public showCreateForm: boolean = false;
     public showUpdateForm: boolean = false;
     public showDeleteConfirmation: boolean = false;
-    public selectedAgentId: string | null = null;
+    public selectedFamilyMemberId: string | null = null;
 
     public ngAfterViewInit(
     ): void {
         setTimeout(() => {
-            this.loadAgents();
+            this.loadFamilyMembers();
         }, 500);
     }
 
-    private async loadAgents(
+    private async loadFamilyMembers(
     ): Promise<void> {
-        this.isLoadingAgents = true;
+        this.isLoadingFamilyMembers = true;
 
         try {
-            this.agentList = await DataServiceAgents.getAll();
+            this.familyMemberList = await DataServiceFamilyMembers.getAll();
         } finally {
-            this.isLoadingAgents = false;
+            this.isLoadingFamilyMembers = false;
         }
     }
 
     public get haveData(
     ): boolean {
-        return this.agentList.length > 0;
+        return this.familyMemberList.length > 0;
     }
 
     public onCreateClicked(
@@ -49,16 +49,16 @@ export class MastersAgentsPage implements AfterViewInit {
         saved: boolean
     ): void {
         if (saved) {
-            this.loadAgents();
+            this.loadFamilyMembers();
         }
 
         this.showCreateForm = false;
     }
 
     public onUpdateClicked(
-        agentId: string
+        familyMemberId: string
     ): void {
-        this.selectedAgentId = agentId;
+        this.selectedFamilyMemberId = familyMemberId;
         this.showUpdateForm = true;
     }
 
@@ -66,17 +66,17 @@ export class MastersAgentsPage implements AfterViewInit {
         saved: boolean
     ): void {
         if (saved) {
-            this.loadAgents();
+            this.loadFamilyMembers();
         }
 
         this.showUpdateForm = false;
-        this.selectedAgentId = null;
+        this.selectedFamilyMemberId = null;
     }
 
     public onDeleteClicked(
-        agentId: string
+        familyMemberId: string
     ): void {
-        this.selectedAgentId = agentId;
+        this.selectedFamilyMemberId = familyMemberId;
         this.showDeleteConfirmation = true;
     }
 
@@ -84,10 +84,10 @@ export class MastersAgentsPage implements AfterViewInit {
         saved: boolean
     ): void {
         if (saved) {
-            this.loadAgents();
+            this.loadFamilyMembers();
         }
 
         this.showDeleteConfirmation = false;
-        this.selectedAgentId = null;
+        this.selectedFamilyMemberId = null;
     }
 }

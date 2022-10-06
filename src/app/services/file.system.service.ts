@@ -1,53 +1,77 @@
-import { IFileSystem } from './file.system.interface';
-
 import {
     FileHandleInvalidError,
     FileReadFailedError,
     FileWriteFailedError,
 } from '@app/errors';
 
-import {
-    HelperService,
-    RootModel,
-} from '@app/services';
-
-export class FileSystem implements IFileSystem {
-    private readonly _fileWritableOptions: FileSystemCreateWritableOptions = {
+export class FileSystemService {
+    private static readonly _fileWritableOptions: FileSystemCreateWritableOptions = {
         keepExistingData: false
     };
-    private readonly _jsonIndentation: string = '    ';
     
-    private _fileHandle: FileSystemFileHandle | null = null;
-
-    public get canChangeFileHandle(
-    ): boolean {
-        return true;
-    }
+    private static _fileHandle: FileSystemFileHandle | null = null;
     
-    public setFileHandle(
+    private static setFileHandle(
         fileHandle: FileSystemFileHandle | null
     ): void {
         this._fileHandle = fileHandle;
     }
 
-    public get haveFileHandle(
+    public static get haveFileHandle(
     ): boolean {
         return this._fileHandle != null;
     }
 
-    public get fileName(
-    ): string {
-        return this._fileHandle?.name!;
+    public static get fileName(
+    ): string | null {
+        if (this.haveFileHandle) {
+            return this._fileHandle!.name;
+        }
+
+        return null;
     }
 
-    private validateFileHandleAndThrow(
+    public static async createFile(
+    ): Promise<boolean> {
+        try {
+            const fileHandle: FileSystemFileHandle = await window.showSaveFilePicker();
+            
+            this.setFileHandle(fileHandle);
+
+            return true;
+        } catch {
+        }
+
+        return false;
+    }
+
+    public static async openFile(
+    ): Promise<boolean> {
+        try {
+            const [fileHandle]: FileSystemFileHandle[] = await window.showOpenFilePicker();
+            
+            this.setFileHandle(fileHandle);
+
+            return true;
+        } catch {
+        }
+
+        return false;
+    }
+
+    public static closeFile(
+    ): void {
+        this.setFileHandle(null);
+    }
+
+    private static validateFileHandleAndThrow(
     ): void {
         if (!this.haveFileHandle) {
             throw new FileHandleInvalidError();
         }
     }
 
-    private async read(
+    public static async read(
     ): Promise<string> {
         this.validateFileHandleAndThrow();
 
@@ -62,7 +86,7 @@ export class FileSystem implements IFileSystem {
         }
     }
 
-    private async write(
+    public static async write(
         value: string
     ): Promise<void> {
         this.validateFileHandleAndThrow();
@@ -77,42 +101,5 @@ export class FileSystem implements IFileSystem {
 
             throw new FileWriteFailedError();
         }
-    }
-
-    private async get<TJsonObject>(
-    ): Promise<TJsonObject> {
-        const jsonString: string = await this.read();
-        const jsonObject: TJsonObject = JSON.parse(jsonString);
-        return jsonObject;
-    }
-
-    private async save<TJsonObject>(
-        jsonObject: TJsonObject
-    ): Promise<void> {
-        const jsonString: string = JSON.stringify(jsonObject, null, this._jsonIndentation);
-        await this.write(jsonString);
-    }
-
-    public async init(
-    ): Promise<void> {
-        const root: RootModel = {
-            eTag: HelperService.newGuid,
-            lastUpdatedAt: HelperService.currentUTCDateAsString,
-            agents: []
-        };
-
-        await this.save(root);
-    }
-    
-    public async getRoot(
-    ): Promise<RootModel> {
-        const root: RootModel = await this.get();
-        return root;
-    }
-
-    public async saveRoot(
-        root: RootModel
-    ): Promise<void> {
-        await this.save(root);
     }
 }

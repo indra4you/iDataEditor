@@ -2,9 +2,18 @@ export type RootModel = {
     eTag: string;
     lastUpdatedAt: string;
     agents: AgentModel[] | null;
+    familyMembers: FamilyMemberModel[] | null;
 }
 
 export type AgentModel = {
+    id: string;
+    name: NameModel;
+    emailAddresses: string[] | null;
+    contactNumbers: string[] | null;
+    addresses: AddressModel[] | null;
+}
+
+export type FamilyMemberModel = {
     id: string;
     name: NameModel;
     emailAddresses: string[] | null;
