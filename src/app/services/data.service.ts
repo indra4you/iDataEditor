@@ -11,8 +11,7 @@ export class DataService {
     private static _root: RootModel = {
         eTag: HelperService.newGuid,
         lastUpdatedAt: HelperService.currentUTCDateAsString,
-        agents: [],
-        familyMembers: [],
+        termDeposits: [],
     };
 
     private static async get<TJsonObject>(

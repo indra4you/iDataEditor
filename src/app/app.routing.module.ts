@@ -4,22 +4,14 @@ import { RouterModule, Routes } from '@angular/router';
 import {
     NotFoundPage,
     DashboardPage,
-    MastersAgentsPage,
-    MastersFamilyMembersPage,
 } from '@app/pages';
 
 const routes: Routes = [
     { path: 'dashboard', component: DashboardPage },
 
     {
-        path: 'masters',
-        children: [
-            { path: 'agents', component: MastersAgentsPage },
-
-            { path: 'family.members', component: MastersFamilyMembersPage },
-
-            { path: '**', component: NotFoundPage },
-        ]
+        path: 'term.deposits',
+        loadChildren: () => import('@app/modules/term.deposits/module').then(m => m.TermDepositsModule),
     },
 
     { path: '', redirectTo: 'dashboard', pathMatch: 'full' },

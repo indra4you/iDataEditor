@@ -20,6 +20,22 @@
 
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link active dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-card-checklist"></i>
+                        <span class="ms-2 me-1">Transactions</span>
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a [routerLink]="['/term.deposits']" class="dropdown-item">
+                                <i class="bi bi-piggy-bank"></i>
+                                <span class="ms-2">Term Deposits</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link active dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="bi bi-collection"></i>
                         <span class="ms-2 me-1">Masters</span>
                     </a>

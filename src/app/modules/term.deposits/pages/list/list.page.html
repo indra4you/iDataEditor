@@ -1,0 +1,99 @@
+<section class="container-fluid">
+    <h1 class="my-3">
+        Term Deposits
+
+        <button *ngIf="!isLoading" type="button" (click)="onAddClicked()" class="border-0 bg-transparent text-primary ms-2">
+            <i class="bi bi-plus-circle-dotted"></i>
+        </button>
+    </h1>
+
+    <div class="card shadow-sm">
+        <table class="table table-hover table-responsive align-middle mb-0">
+            <colgroup>
+                <col width="50">
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col width="5">
+            </colgroup>
+
+            <thead>
+                <tr class="text-bg-light">
+                    <th scope="col" class="text-end">#</th>
+                    <th scope="col">Account Number</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Institution</th>
+                    <th scope="col" class="text-end">Start Date</th>
+                    <th scope="col" class="text-end">Principal</th>
+                    <th scope="col" class="text-end">Maturity Date</th>
+                    <th scope="col" class="text-end">Maturity Amount</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+
+            <tbody *ngIf="isLoading; else showData" class="table-group-divider placeholder-glow">
+                <tr>
+                    <td colspan="9">
+                        <span class="col-12 placeholder"></span>
+                    </td>
+                </tr>
+            </tbody>
+
+            <ng-template #showData>
+                <tbody *ngIf="haveData; else noData" class="table-group-divider">
+                    <tr *ngFor="let item of list; index as i">
+                        <th scope="row" class="text-end">{{ i + 1 }}.</th>
+
+                        <td>{{ item.accountNumber }}</td>
+
+                        <td>{{ toFullName(item.name) }}</td>
+
+                        <td>{{ item.institutionName }}, {{ item.institutionBranch }}</td>
+
+                        <td class="text-end">{{ item.startDate | date }}</td>
+
+                        <td class="text-end">{{ item.principalAmount | currency: item.currencyCode }}</td>
+
+                        <td class="text-end">{{ item.maturityDate | date }}</td>
+
+                        <td class="text-end">{{ item.maturityAmount | currency: item.currencyCode }}</td>
+
+                        <td class="text-end">
+                            <div class="btn-group">
+                                <button type="button" (click)="onEditClicked(item.id)" class="btn btn-outline-primary shadow-none border-0">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+    
+                                <button type="button" (click)="onDeleteClicked(item.id)" class="btn btn-outline-danger shadow-none border-0">
+                                    <i class="bi bi-trash3"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+
+                <ng-template #noData>
+                    <tbody class="table-group-divider">
+                        <tr>
+                            <td colspan="9" class="lead text-center text-muted py-4">
+                                Click
+                                <button type="button" (click)="onAddClicked()" class="border-0 bg-transparent text-primary">
+                                    <i class="bi bi-plus-circle-dotted text-primary"></i>
+                                </button>
+                                to add a term deposit
+                            </td>
+                        </tr>
+                    </tbody>
+                </ng-template>
+            </ng-template>
+        </table>
+    </div>
+</section>
+
+<term-deposit-form *ngIf="showForm" [id]="selectedId" (onClose)="onFormClosed($event)"></term-deposit-form>
+
+<term-deposit-delete *ngIf="showDelete" [id]="selectedId" (onClose)="onDeleteClosed($event)"></term-deposit-delete>

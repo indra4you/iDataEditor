@@ -12,14 +12,6 @@ import {
 import {
     NotFoundPage,
     DashboardPage,
-    MastersAgentsPage,
-    MastersAgentCreateComponent,
-    MastersAgentUpdateComponent,
-    MastersAgentDeleteComponent,
-    MastersFamilyMembersPage,
-    MastersFamilyMemberCreateComponent,
-    MastersFamilyMemberUpdateComponent,
-    MastersFamilyMemberDeleteComponent,
 } from '@app/pages';
 
 @NgModule({
@@ -28,14 +20,6 @@ import {
         NavBarComponent,
         NotFoundPage,
         DashboardPage,
-        MastersAgentsPage,
-        MastersAgentCreateComponent,
-        MastersAgentUpdateComponent,
-        MastersAgentDeleteComponent,
-        MastersFamilyMembersPage,
-        MastersFamilyMemberCreateComponent,
-        MastersFamilyMemberUpdateComponent,
-        MastersFamilyMemberDeleteComponent,
     ],
     imports: [
         BrowserModule,

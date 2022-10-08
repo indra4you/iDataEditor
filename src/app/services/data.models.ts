@@ -1,34 +1,26 @@
 export type RootModel = {
     eTag: string;
     lastUpdatedAt: string;
-    agents: AgentModel[] | null;
-    familyMembers: FamilyMemberModel[] | null;
+    termDeposits: TermDepositModel[] | null;
 }
 
-export type AgentModel = {
+export type TermDepositModel = {
     id: string;
+    status: 'Active';
+    accountNumber: string;
+    currencyCode: string;
+    institutionName: string;
+    institutionBranch: string;
     name: NameModel;
-    emailAddresses: string[] | null;
-    contactNumbers: string[] | null;
-    addresses: AddressModel[] | null;
-}
-
-export type FamilyMemberModel = {
-    id: string;
-    name: NameModel;
-    emailAddresses: string[] | null;
-    contactNumbers: string[] | null;
-    addresses: AddressModel[] | null;
-}
-
-export type AddressModel = {
-    line1: string | null;
-    line2: string | null;
-    line3: string | null;
-    city: string | null;
-    state: string | null;
-    country: string | null;
-    zip: string | null;
+    startDate: Date;
+    principalAmount: number;
+    tenureDays: number;
+    tenureMonths: number;
+    interestRate: number;
+    interestAmount: number;
+    maturityDate: Date;
+    maturityAmount: number;
+    features: string;
 }
 
 export type NameModel = {

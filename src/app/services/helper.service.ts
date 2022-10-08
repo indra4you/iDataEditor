@@ -1,5 +1,7 @@
 import { Environment } from '@environments/environment';
 
+import { NameModel } from './data.models';
+
 export class HelperService {
     public static get supportsFileSystemFileHandle(
     ): boolean {
@@ -24,5 +26,15 @@ export class HelperService {
     public static get currentUTCDateAsString(
     ): string {
         return new Date().toUTCString();
+    }
+
+    public static toFullName(
+        name: NameModel | null
+    ): string {
+        if (null === name) {
+            return '';
+        }
+
+        return `${name.first ?? ''} ${name.middle ?? ''} ${name.last ?? ''}`.trim();
     }
 }
