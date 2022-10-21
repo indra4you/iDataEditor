@@ -11,20 +11,26 @@ export type TermDepositModel = {
     currencyCode: string;
     institutionName: string;
     institutionBranch: string;
-    name: NameModel;
+    names: NameModel[];
     startDate: Date;
     principalAmount: number;
+    interestRate: number;
     tenureDays: number;
     tenureMonths: number;
-    interestRate: number;
-    interestAmount: number;
     maturityDate: Date;
     maturityAmount: number;
-    features: string;
+    interestAmount: number;
+    nominees: NomineeModel[] | null,
+    features: string | null;
+}
+
+export type NomineeModel = {
+    name: NameModel,
+    share: number;
 }
 
 export type NameModel = {
-    first: string | null;
+    first: string;
     middle: string | null;
-    last: string | null;
+    last: string;
 }

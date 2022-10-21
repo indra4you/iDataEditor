@@ -53,15 +53,15 @@ export class TermDepositDeleteComponent implements AfterViewInit {
         return !this.isLoading && this.model !== null;
     }
 
-    public toFullName(
-        name: NameModel
-    ): string {
-        return HelperService.toFullName(name);
-    }
-
     public get haveError(
     ): boolean {
         return this.errorMessage.length > 0;
+    }
+
+    public toDisplayName(
+        name: NameModel
+    ): string | null {
+        return HelperService.toDisplayName(name);
     }
 
     public onCancelClicked(

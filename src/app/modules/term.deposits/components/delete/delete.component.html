@@ -64,7 +64,9 @@
             <div class="mb-3">
                 <label>Name</label>
                 
-                <span class="form-control-plaintext">{{ toFullName(model!.name) }}</span>
+                <span *ngFor="let name of model!.names; let i = index" class="form-control-plaintext">
+                    {{ i + 1 }}. {{ toDisplayName(name) }}
+                </span>
             </div>
 
             <div class="mb-3">

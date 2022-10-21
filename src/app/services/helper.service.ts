@@ -1,6 +1,8 @@
 import { Environment } from '@environments/environment';
 
-import { NameModel } from './data.models';
+import {
+    NameModel
+} from './data.models';
 
 export class HelperService {
     public static get supportsFileSystemFileHandle(
@@ -28,13 +30,25 @@ export class HelperService {
         return new Date().toUTCString();
     }
 
-    public static toFullName(
+    public static toDisplayName(
         name: NameModel | null
-    ): string {
+    ): string | null {
         if (null === name) {
-            return '';
+            return null;
         }
 
-        return `${name.first ?? ''} ${name.middle ?? ''} ${name.last ?? ''}`.trim();
+        return `${(null !== name.first && name.first.length > 0) ? name.first : ''} ${(null !== name.middle && name.middle.length > 0) ? name.middle : ''} ${(null !== name.last && name.last.length > 0) ? name.last : ''}`.trim();
+    }
+
+    public static toTrim(
+        value: string
+    ): string {
+        return value.trim();
+    }
+    
+    public static toTrimOrNull(
+        value: string | null
+    ): string | null {
+        return (null !== value && value.trim().length > 0) ? value.trim() : null;
     }
 }

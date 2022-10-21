@@ -7,6 +7,7 @@ import { AppComponent } from '@app/app.component';
 
 import {
     NavBarComponent,
+    FooterComponent,
 } from '@app/components';
 
 import {
@@ -18,6 +19,7 @@ import {
     declarations: [
         AppComponent,
         NavBarComponent,
+        FooterComponent,
         NotFoundPage,
         DashboardPage,
     ],

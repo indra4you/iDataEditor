@@ -1,99 +1,159 @@
-<section class="container-fluid">
+<section class="container">
     <h1 class="my-3">
         Term Deposits
 
-        <button *ngIf="!isLoading" type="button" (click)="onAddClicked()" class="border-0 bg-transparent text-primary ms-2">
+        <a [routerLink]="['add']" class="text-primary ms-2">
             <i class="bi bi-plus-circle-dotted"></i>
-        </button>
+        </a>
     </h1>
-
-    <div class="card shadow-sm">
-        <table class="table table-hover table-responsive align-middle mb-0">
-            <colgroup>
-                <col width="50">
-                <col>
-                <col>
-                <col>
-                <col>
-                <col>
-                <col>
-                <col>
-                <col width="5">
-            </colgroup>
-
-            <thead>
-                <tr class="text-bg-light">
-                    <th scope="col" class="text-end">#</th>
-                    <th scope="col">Account Number</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Institution</th>
-                    <th scope="col" class="text-end">Start Date</th>
-                    <th scope="col" class="text-end">Principal</th>
-                    <th scope="col" class="text-end">Maturity Date</th>
-                    <th scope="col" class="text-end">Maturity Amount</th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-
-            <tbody *ngIf="isLoading; else showData" class="table-group-divider placeholder-glow">
-                <tr>
-                    <td colspan="9">
-                        <span class="col-12 placeholder"></span>
-                    </td>
-                </tr>
-            </tbody>
-
-            <ng-template #showData>
-                <tbody *ngIf="haveData; else noData" class="table-group-divider">
-                    <tr *ngFor="let item of list; index as i">
-                        <th scope="row" class="text-end">{{ i + 1 }}.</th>
-
-                        <td>{{ item.accountNumber }}</td>
-
-                        <td>{{ toFullName(item.name) }}</td>
-
-                        <td>{{ item.institutionName }}, {{ item.institutionBranch }}</td>
-
-                        <td class="text-end">{{ item.startDate | date }}</td>
-
-                        <td class="text-end">{{ item.principalAmount | currency: item.currencyCode }}</td>
-
-                        <td class="text-end">{{ item.maturityDate | date }}</td>
-
-                        <td class="text-end">{{ item.maturityAmount | currency: item.currencyCode }}</td>
-
-                        <td class="text-end">
-                            <div class="btn-group">
-                                <button type="button" (click)="onEditClicked(item.id)" class="btn btn-outline-primary shadow-none border-0">
-                                    <i class="bi bi-pencil"></i>
-                                </button>
     
-                                <button type="button" (click)="onDeleteClicked(item.id)" class="btn btn-outline-danger shadow-none border-0">
-                                    <i class="bi bi-trash3"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-
-                <ng-template #noData>
-                    <tbody class="table-group-divider">
-                        <tr>
-                            <td colspan="9" class="lead text-center text-muted py-4">
-                                Click
-                                <button type="button" (click)="onAddClicked()" class="border-0 bg-transparent text-primary">
-                                    <i class="bi bi-plus-circle-dotted text-primary"></i>
-                                </button>
-                                to add a term deposit
-                            </td>
-                        </tr>
-                    </tbody>
-                </ng-template>
-            </ng-template>
-        </table>
+    <div *ngIf="isLoading; else showData" class="placeholder-glow">
+        <div *ngFor="let i of _noOfData" class="card shadow-sm mb-3">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <span class="col-12 placeholder"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="col-12 placeholder"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="col-12 placeholder"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="col-12 placeholder"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="col-12 placeholder"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="col-12 placeholder"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</section>
 
-<term-deposit-form *ngIf="showForm" [id]="selectedId" (onClose)="onFormClosed($event)"></term-deposit-form>
+    <ng-template #showData>
+        <div *ngIf="haveData; else noData">
+            <div *ngFor="let item of list" class="card shadow-sm mb-3">
+                <div class="position-relative">
+                    <div class="position-absolute top-0 end-0">
+                        <div class="btn-group">
+                            <a type="button" [routerLink]="['edit', item.id]" class="btn btn-outline-primary shadow-none border-0">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+
+                            <button type="button" (click)="onDeleteClicked(item.id)" class="btn btn-outline-danger shadow-none border-0">
+                                <i class="bi bi-trash3"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="row mb-md-2">
+                        <div class="col-md-3">
+                            <small class="text-secondary">Account Number</small>
+                            <br />
+                            <span>{{ item.accountNumber }}</span>
+                        </div>
+
+                        <div class="col-md-4">
+                            <small class="text-secondary">Names</small>
+                            <br />
+                            <span>{{ toNames(item.names) }}</span>
+                        </div>
+
+                        <div class="col-md-5">
+                            <small class="text-secondary">Institution</small>
+                            <br />
+                            <span>{{ item.institutionName }}, {{ item.institutionBranch }}</span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <small class="text-secondary">Start Date</small>
+                            <br />
+                            <span>{{ item.startDate | date }}</span>
+                        </div>
+
+                        <div class="col-md-3">
+                            <small class="text-secondary">Principal Amount</small>
+                            <br />
+                            <span>{{ item.principalAmount | currency: item.currencyCode }}</span>
+                        </div>
+
+                        <div class="col-md-3">
+                            <small class="text-secondary">Maturity Date</small>
+                            <br />
+                            <span>{{ item.maturityDate | date }}</span>
+                        </div>
+
+                        <div class="col-md-3">
+                            <small class="text-secondary">Maturity Amount</small>
+                            <br />
+                            <span>{{ item.maturityAmount | currency: item.currencyCode }}</span>
+                        </div>
+                    </div>
+
+                    <div class="collapse row mt-2" [id]="'td-' + item.id">
+                        <div class="col-md-3">
+                            <small class="text-secondary">Tenure</small>
+                            <br />
+                            <span>{{ toTenure(item) }}</span>
+                        </div>
+
+                        <div class="col-md-3">
+                            <small class="text-secondary">Interest Rate</small>
+                            <br />
+                            <span>{{ item.interestRate }}%</span>
+                        </div>
+
+                        <div class="col-md-3">
+                            <small class="text-secondary">Interest Amount</small>
+                            <br />
+                            <span>{{ item.interestAmount | currency: item.currencyCode }}</span>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <small class="text-secondary">Nominees</small>
+                            <br />
+                            <span>{{ toNominees(item.nominees) }}</span>
+                        </div>
+
+                        <div class="col-md-4 mt-2">
+                            <small class="text-secondary">Features</small>
+                            <br />
+                            <span>{{ item.features || '-' }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="position-relative">
+                    <div class="position-absolute bottom-0 end-0">
+                        <button type="button"
+                            class="btn btn-outline-secondary shadow-none border-0"
+                            data-bs-toggle="collapse" [attr.data-bs-target]="'#td-' + item.id" aria-expanded="false" [attr.aria-controls]="item.id">
+                            <i class="bi bi-chevron-double-up collapse-hide"></i>
+                            <i class="bi bi-chevron-double-down expanded-hide"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ng-template #noData>
+            <div class="lead text-center text-muted py-4">
+                Click
+                <a [routerLink]="['add']" class="text-primary">
+                    <i class="bi bi-plus-circle-dotted"></i>
+                </a>
+                to add a term deposit
+            </div>
+        </ng-template>
+    </ng-template>
+</section>
 
 <term-deposit-delete *ngIf="showDelete" [id]="selectedId" (onClose)="onDeleteClosed($event)"></term-deposit-delete>

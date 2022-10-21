@@ -1,0 +1,64 @@
+<div class="offcanvas offcanvas-end show" tabindex="-1" aria-modal="true" role="dialog">
+    <div class="offcanvas-header text-bg-primary">
+        <h5 class="offcanvas-title">Add Name</h5>
+    </div>
+
+    <div class="offcanvas-body">
+        <div *ngIf="isLoading; else showForm" class="placeholder-glow">
+            <div *ngFor="let i of _noOfFields" class="mb-3">
+                <label class="form-label col-5 placeholder"></label>
+                
+                <span class="form-control col-12 placeholder"></span>
+            </div>
+
+            <button type="button" disabled class="btn btn-primary col-4 placeholder">
+            </button>
+
+            <button type="button" disabled class="btn btn-secondary ms-2 col-4 placeholder">
+            </button>
+        </div>
+
+        <ng-template #showForm>
+            <div [formGroup]="mainFormGroup">
+                <div class="mb-3">
+                    <label for="firstName" class="form-label">First Name</label>
+
+                    <input type="text" formControlName="firstName" id="firstName" #focusOn
+                        class="form-control" [ngClass]="{ 'is-invalid': mainFormGroupControls.firstName.errors, 'is-valid': mainFormGroupControls.firstName.valid }">
+
+                    <div *ngIf="mainFormGroupControls.firstName.errors" class="invalid-feedback">
+                        <div *ngIf="mainFormGroupControls.firstName.errors.required">First Name is required</div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="middleName" class="form-label">Middle Name</label>
+
+                    <input type="text" formControlName="middleName" id="middleName"
+                        class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label for="lastName" class="form-label">Last Name</label>
+
+                    <input type="text" formControlName="lastName" id="lastName"
+                        class="form-control" [ngClass]="{ 'is-invalid': mainFormGroupControls.lastName.errors, 'is-valid': mainFormGroupControls.lastName.valid }">
+
+                    <div *ngIf="mainFormGroupControls.lastName.errors" class="invalid-feedback">
+                        <div *ngIf="mainFormGroupControls.lastName.errors.required">Last Name is required</div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" (click)="onSubmitClicked()" [disabled]="mainFormGroup.invalid" class="btn btn-primary">
+                <i class="bi bi-hdd"></i>
+                <span class="ms-2">Save</span>
+            </button>
+
+            <button type="button" (click)="onCancelClicked()" class="btn btn-outline-secondary ms-2">
+                <i class="bi bi-x-lg"></i>
+                <span class="ms-2">Cancel</span>
+            </button>
+        </ng-template>
+    </div>
+</div>

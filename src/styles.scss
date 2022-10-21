@@ -1,17 +1,8 @@
 @import "../node_modules/bootstrap/scss/functions";
 
-@import "../node_modules/bootstrap/scss/variables";
+$primary: #6f42c1;
 
-$theme-colors: (
-  "primary":    $purple,
-  "secondary":  $secondary,
-  "success":    $success,
-  "info":       $info,
-  "warning":    $warning,
-  "danger":     $danger,
-  "light":      $light,
-  "dark":       $dark
-);
+@import "../node_modules/bootstrap/scss/variables";
 
 $body-bg: $gray-100;
 $enable-shadows: true;
@@ -21,4 +12,11 @@ $enable-gradients: true;
 
 body {
     margin: 0;
+}
+
+.btn[aria-expanded=false] .collapse-hide {
+    display: none;
+}
+.btn[aria-expanded=true] .expanded-hide {
+    display: none;
 }

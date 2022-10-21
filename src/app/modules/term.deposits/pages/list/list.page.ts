@@ -6,15 +6,17 @@ import {
     HelperService,
     TermDepositModel,
     NameModel,
+    NomineeModel,
 } from '@app/services';
 
 @Component({
     templateUrl: './list.page.html'
 })
 export class TermDepositListPage implements AfterViewInit {
+    public readonly _noOfData: number[] = [...Array(3).keys()];
+
     public list: TermDepositModel[] = [];
     public isLoading: boolean = false;
-    public showForm: boolean = false;
     public showDelete: boolean = false;
     public selectedId: string | null = null;
 
@@ -33,7 +35,9 @@ export class TermDepositListPage implements AfterViewInit {
         } catch (error) {
             console.error(error);
         } finally {
-            this.isLoading = false;
+            setTimeout(() => {
+                this.isLoading = false;
+            }, 500);
         }
     }
 
@@ -42,34 +46,38 @@ export class TermDepositListPage implements AfterViewInit {
         return this.list.length > 0;
     }
 
-    public toFullName(
-        name: NameModel
+    public toTenure(
+        model: TermDepositModel,
     ): string {
-        return HelperService.toFullName(name);
-    }
-
-    public onAddClicked(
-    ): void {
-        this.selectedId = null;
-        this.showForm = true;
-    }
-
-    public onEditClicked(
-        id: string
-    ): void {
-        this.selectedId = id;
-        this.showForm = true;
-    }
-
-    public onFormClosed(
-        saved: boolean
-    ): void {
-        if (saved) {
-            this.load();
+        if (model.tenureDays > 0 && model.tenureMonths > 0) {
+            return `${model.tenureDays} days & ${model.tenureMonths} months`;
+        } else if (model.tenureDays > 0) {
+            return `${model.tenureDays} days`;
+        } else if (model.tenureMonths > 0) {
+            return `${model.tenureMonths} months`;
         }
 
-        this.selectedId = null;
-        this.showForm = false;
+        return '';
+    }
+
+    public toNames(
+        names: NameModel[],
+    ): string {
+        return names
+            .map((name) => HelperService.toDisplayName(name))
+            .join(', ');
+    }
+
+    public toNominees(
+        nominees: NomineeModel[] | null,
+    ): string {
+        if (nominees == null || nominees.length == 0) {
+            return '-';
+        }
+
+        return nominees
+            .map((nominee) => `${HelperService.toDisplayName(nominee.name)} (${nominee.share}%)`)
+            .join(', ');
     }
 
     public onDeleteClicked(
