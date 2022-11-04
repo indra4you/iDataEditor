@@ -64,6 +64,7 @@ export class TermDepositFormPage implements OnInit {
         this.mainFormGroup = this._formBuilder.group({
             accountNumber: new FormControl('', [Validators.required]),
             currencyCode: new FormControl('INR', [Validators.required]),
+            termDepositType: new FormControl('', Validators.required),
             startDate: new FormControl('', [Validators.required]),
             principalAmount: new FormControl('', [Validators.required, Validators.min(100)]),
             interestRate: new FormControl('', [Validators.required, Validators.min(0.01), Validators.max(100.00)]),
@@ -74,6 +75,7 @@ export class TermDepositFormPage implements OnInit {
             interestAmount: new FormControl('', [Validators.required, Validators.min(0)]),
             institutionName: new FormControl('', [Validators.required]),
             institutionBranch: new FormControl('', [Validators.required]),
+            through: new FormControl('', [Validators.required]),
             features: new FormControl('', []),
         });
 
@@ -83,6 +85,7 @@ export class TermDepositFormPage implements OnInit {
             this.mainFormGroup.patchValue({
                 accountNumber: termDeposit.accountNumber,
                 currencyCode: termDeposit.currencyCode,
+                termDepositType: termDeposit.termDepositType,
                 startDate: termDeposit.startDate,
                 principalAmount: termDeposit.principalAmount,
                 interestRate: termDeposit.interestRate,
@@ -93,6 +96,7 @@ export class TermDepositFormPage implements OnInit {
                 interestAmount: termDeposit.interestAmount,
                 institutionName: termDeposit.institutionName,
                 institutionBranch: termDeposit.institutionBranch,
+                through: termDeposit.through,
                 features: termDeposit.features,
             });
 
@@ -200,6 +204,7 @@ export class TermDepositFormPage implements OnInit {
             status: 'Active',
             accountNumber: this.mainFormGroupControls.accountNumber.value,
             currencyCode: this.mainFormGroupControls.currencyCode.value,
+            termDepositType: this.mainFormGroupControls.termDepositType.value,
             institutionName: this.mainFormGroupControls.institutionName.value,
             institutionBranch: this.mainFormGroupControls.institutionBranch.value,
             names: this.nameList,
@@ -212,6 +217,7 @@ export class TermDepositFormPage implements OnInit {
             maturityDate: this.mainFormGroupControls.maturityDate.value,
             maturityAmount: this.mainFormGroupControls.maturityAmount.value,
             nominees: this.haveNominees ? this.nomineeList : null,
+            through: this.mainFormGroupControls.through.value,
             features: this.mainFormGroupControls.features.value,
         };
 

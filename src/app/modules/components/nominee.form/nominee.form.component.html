@@ -50,6 +50,17 @@
                 </div>
 
                 <div class="mb-3">
+                    <label for="relation" class="form-label">Relation</label>
+
+                    <input type="text" formControlName="relation" id="relation"
+                        class="form-control" [ngClass]="{ 'is-invalid': mainFormGroupControls.relation.errors, 'is-valid': mainFormGroupControls.relation.valid }">
+
+                    <div *ngIf="mainFormGroupControls.relation.errors" class="invalid-feedback">
+                        <div *ngIf="mainFormGroupControls.relation.errors.required">Relation is required</div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
                     <label for="share" class="form-label">Share</label>
 
                     <div class="input-group has-validation">

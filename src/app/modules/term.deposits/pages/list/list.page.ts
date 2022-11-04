@@ -1,13 +1,13 @@
 import { AfterViewInit, Component } from '@angular/core';
 
-import { DataServiceTermDeposits } from '../../data.service.term.deposits';
-
 import {
     HelperService,
     TermDepositModel,
     NameModel,
     NomineeModel,
 } from '@app/services';
+
+import { DataServiceTermDeposits } from '../../data.service.term.deposits';
 
 @Component({
     templateUrl: './list.page.html'
@@ -31,7 +31,16 @@ export class TermDepositListPage implements AfterViewInit {
         this.isLoading = true;
 
         try {
-            this.list = await DataServiceTermDeposits.getAll();
+            const termDeposits: TermDepositModel[] = await DataServiceTermDeposits.getAll();
+
+            this.list = termDeposits
+                .sort((a, b) => {
+                    if (a.maturityDate === b.maturityDate) {
+                        return 0;
+                    }
+
+                    return (a.maturityDate > b.maturityDate) ? 1 : -1;
+                });
         } catch (error) {
             console.error(error);
         } finally {
@@ -76,7 +85,7 @@ export class TermDepositListPage implements AfterViewInit {
         }
 
         return nominees
-            .map((nominee) => `${HelperService.toDisplayName(nominee.name)} (${nominee.share}%)`)
+            .map((nominee) => `${nominee.relation} - ${HelperService.toDisplayName(nominee.name)} ( ${nominee.share}% )`)
             .join(', ');
     }
 

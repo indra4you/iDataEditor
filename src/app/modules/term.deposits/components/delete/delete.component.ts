@@ -1,7 +1,5 @@
 import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { DataServiceTermDeposits } from '../../data.service.term.deposits';
-
 import {
     DataNotFoundError,
 } from '@app/errors';
@@ -11,6 +9,8 @@ import {
     TermDepositModel,
     NameModel,
 } from '@app/services';
+
+import { DataServiceTermDeposits } from '../../data.service.term.deposits';
 
 @Component({
     selector: 'term-deposit-delete',

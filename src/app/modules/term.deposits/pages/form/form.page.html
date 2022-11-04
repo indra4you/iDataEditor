@@ -244,17 +244,6 @@
         <div [formGroup]="mainFormGroup">
             <fieldset>
                 <div class="row">
-                    <div class="col-lg-4 col-md-5 mb-3">
-                        <label for="accountNumber" class="form-label">Account Number</label>
-
-                        <input type="text" formControlName="accountNumber" id="accountNumber" #focusOn
-                            class="form-control" [ngClass]="{ 'is-invalid': mainFormGroupControls.accountNumber.errors, 'is-valid': mainFormGroupControls.accountNumber.valid }">
-
-                        <div *ngIf="mainFormGroupControls.accountNumber.errors" class="invalid-feedback">
-                            <div *ngIf="mainFormGroupControls.accountNumber.errors.required">Account Number is required</div>
-                        </div>
-                    </div>
-
                     <div class="col-lg-3 col-md-4 mb-3">
                         <label for="currencyCode" class="form-label">Currency</label>
 
@@ -267,6 +256,39 @@
 
                         <div *ngIf="mainFormGroupControls.currencyCode.errors" class="invalid-feedback">
                             <div *ngIf="mainFormGroupControls.currencyCode.errors.required">Currency is required</div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-5 mb-3">
+                        <label for="accountNumber" class="form-label">Account Number</label>
+
+                        <input type="text" formControlName="accountNumber" id="accountNumber" #focusOn
+                            class="form-control" [ngClass]="{ 'is-invalid': mainFormGroupControls.accountNumber.errors, 'is-valid': mainFormGroupControls.accountNumber.valid }">
+
+                        <div *ngIf="mainFormGroupControls.accountNumber.errors" class="invalid-feedback">
+                            <div *ngIf="mainFormGroupControls.accountNumber.errors.required">Account Number is required</div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-5 mb-3">
+                        <label for="termDepositType" class="form-label">Type</label>
+
+                        <input type="text" formControlName="termDepositType" id="termDepositType"
+                            class="form-control" [ngClass]="{ 'is-invalid': mainFormGroupControls.termDepositType.errors, 'is-valid': mainFormGroupControls.termDepositType.valid }">
+
+                        <div *ngIf="mainFormGroupControls.termDepositType.errors" class="invalid-feedback">
+                            <div *ngIf="mainFormGroupControls.termDepositType.errors.required">Type is required</div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4 mb-3">
+                        <label for="through" class="form-label">Booked Through</label>
+
+                        <input type="text" formControlName="through" id="through"
+                            class="form-control" [ngClass]="{ 'is-invalid': mainFormGroupControls.through.errors, 'is-valid': mainFormGroupControls.through.valid }">
+
+                        <div *ngIf="mainFormGroupControls.through.errors" class="invalid-feedback">
+                            <div *ngIf="mainFormGroupControls.through.errors.required">Booked Through is required</div>
                         </div>
                     </div>
                 </div>
@@ -416,7 +438,7 @@
                                 <td>{{ name.last }}</td>
                                 <td>
                                     <button type="button" (click)="onDeleteNameClicked(i)" class="btn btn-sm btn-outline-danger">
-                                        <i class="bi bi-x-lg"></i>
+                                        <i class="bi bi-trash3"></i>
                                     </button>
                                 </td>
                             </tr>
@@ -475,6 +497,7 @@
                             <col>
                             <col>
                             <col>
+                            <col width="7%">
                             <col width="5%">
                             <col width="3%">
                         </colgroup>
@@ -485,6 +508,7 @@
                                 <th scope="col">First Name</th>
                                 <th scope="col">Middle Name</th>
                                 <th scope="col">Last Name</th>
+                                <th scope="col">Relation</th>
                                 <th scope="col" class="text-end">Share</th>
                                 <th scope="col"></th>
                             </tr>
@@ -496,10 +520,11 @@
                                 <td>{{ nominee.name.first }}</td>
                                 <td>{{ nominee.name.middle }}</td>
                                 <td>{{ nominee.name.last }}</td>
+                                <td>{{ nominee.relation }}</td>
                                 <td class="text-end">{{ nominee.share }}%</td>
                                 <td>
                                     <button type="button" (click)="onDeleteNomineeClicked(i)" class="btn btn-sm btn-outline-danger">
-                                        <i class="bi bi-x-lg"></i>
+                                        <i class="bi bi-trash3"></i>
                                     </button>
                                 </td>
                             </tr>

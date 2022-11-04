@@ -10,24 +10,42 @@
     <div *ngIf="isLoading; else showData" class="placeholder-glow">
         <div *ngFor="let i of _noOfData" class="card shadow-sm mb-3">
             <div class="card-body">
+                <div class="row mb-md-2">
+                    <div class="col-md-3">
+                        <small class="col-5 placeholder placeholder-sm bg-secondary"></small>
+                        <span class="col-12 placeholder placeholder-sm"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <small class="col-5 placeholder placeholder-sm bg-secondary"></small>
+                        <span class="col-12 placeholder placeholder-sm"></span>
+                    </div>
+
+                    <div class="col-md-5">
+                        <small class="col-5 placeholder placeholder-sm bg-secondary"></small>
+                        <span class="col-12 placeholder placeholder-sm"></span>
+                    </div>
+                </div>
+
                 <div class="row">
-                    <div class="col-md-4">
-                        <span class="col-12 placeholder"></span>
+                    <div class="col-md-3">
+                        <small class="col-5 placeholder placeholder-sm bg-secondary"></small>
+                        <span class="col-12 placeholder placeholder-sm"></span>
                     </div>
-                    <div class="col-md-4">
-                        <span class="col-12 placeholder"></span>
+
+                    <div class="col-md-3">
+                        <small class="col-5 placeholder placeholder-sm bg-secondary"></small>
+                        <span class="col-12 placeholder placeholder-sm"></span>
                     </div>
-                    <div class="col-md-4">
-                        <span class="col-12 placeholder"></span>
+
+                    <div class="col-md-3">
+                        <small class="col-5 placeholder placeholder-sm bg-secondary"></small>
+                        <span class="col-12 placeholder placeholder-sm"></span>
                     </div>
-                    <div class="col-md-4">
-                        <span class="col-12 placeholder"></span>
-                    </div>
-                    <div class="col-md-4">
-                        <span class="col-12 placeholder"></span>
-                    </div>
-                    <div class="col-md-4">
-                        <span class="col-12 placeholder"></span>
+
+                    <div class="col-md-3">
+                        <small class="col-5 placeholder placeholder-sm bg-secondary"></small>
+                        <span class="col-12 placeholder placeholder-sm"></span>
                     </div>
                 </div>
             </div>
@@ -56,7 +74,7 @@
                         <div class="col-md-3">
                             <small class="text-secondary">Account Number</small>
                             <br />
-                            <span>{{ item.accountNumber }}</span>
+                            <span>{{ item.accountNumber }} ( {{ item.termDepositType }} )</span>
                         </div>
 
                         <div class="col-md-4">
@@ -98,35 +116,45 @@
                         </div>
                     </div>
 
-                    <div class="collapse row mt-2" [id]="'td-' + item.id">
-                        <div class="col-md-3">
-                            <small class="text-secondary">Tenure</small>
-                            <br />
-                            <span>{{ toTenure(item) }}</span>
+                    <div class="collapse" [id]="'td-' + item.id">
+                        <div class="row mt-2">
+                            <div class="col-md-3">
+                                <small class="text-secondary">Tenure</small>
+                                <br />
+                                <span>{{ toTenure(item) }}</span>
+                            </div>
+    
+                            <div class="col-md-3">
+                                <small class="text-secondary">Interest Rate</small>
+                                <br />
+                                <span>{{ item.interestRate }}%</span>
+                            </div>
+
+                            <div class="col-md-3">
+                                <small class="text-secondary">Interest Amount</small>
+                                <br />
+                                <span>{{ item.interestAmount | currency: item.currencyCode }}</span>
+                            </div>
+                            
+                            <div class="col-md-3">
+                                <small class="text-secondary">Booked Through</small>
+                                <br />
+                                <span>{{ item.through }}</span>
+                            </div>
                         </div>
 
-                        <div class="col-md-3">
-                            <small class="text-secondary">Interest Rate</small>
-                            <br />
-                            <span>{{ item.interestRate }}%</span>
-                        </div>
-
-                        <div class="col-md-3">
-                            <small class="text-secondary">Interest Amount</small>
-                            <br />
-                            <span>{{ item.interestAmount | currency: item.currencyCode }}</span>
-                        </div>
-                        
-                        <div class="col-md-3">
-                            <small class="text-secondary">Nominees</small>
-                            <br />
-                            <span>{{ toNominees(item.nominees) }}</span>
-                        </div>
-
-                        <div class="col-md-4 mt-2">
-                            <small class="text-secondary">Features</small>
-                            <br />
-                            <span>{{ item.features || '-' }}</span>
+                        <div class="row mt-2">
+                            <div class="col-md-6">
+                                <small class="text-secondary">Nominees</small>
+                                <br />
+                                <span>{{ toNominees(item.nominees) }}</span>
+                            </div>
+    
+                            <div class="col-md-6">
+                                <small class="text-secondary">Features</small>
+                                <br />
+                                <span>{{ item.features || '-' }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>

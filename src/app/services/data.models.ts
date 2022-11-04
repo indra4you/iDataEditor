@@ -4,11 +4,25 @@ export type RootModel = {
     termDeposits: TermDepositModel[] | null;
 }
 
+export type NomineeModel = {
+    name: NameModel;
+    relation: string;
+    share: number;
+}
+
+export type NameModel = {
+    first: string;
+    middle: string | null;
+    last: string;
+}
+
 export type TermDepositModel = {
     id: string;
     status: 'Active';
     accountNumber: string;
     currencyCode: string;
+    through: string;
+    termDepositType: string;
     institutionName: string;
     institutionBranch: string;
     names: NameModel[];
@@ -20,17 +34,6 @@ export type TermDepositModel = {
     maturityDate: Date;
     maturityAmount: number;
     interestAmount: number;
-    nominees: NomineeModel[] | null,
+    nominees: NomineeModel[] | null;
     features: string | null;
-}
-
-export type NomineeModel = {
-    name: NameModel,
-    share: number;
-}
-
-export type NameModel = {
-    first: string;
-    middle: string | null;
-    last: string;
 }

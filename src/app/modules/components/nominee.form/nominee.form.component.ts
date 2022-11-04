@@ -49,6 +49,7 @@ export class NomineeFormComponent implements OnInit, AfterViewInit {
             firstName: new FormControl('', [Validators.required]),
             middleName: new FormControl('', []),
             lastName: new FormControl('', [Validators.required]),
+            relation: new FormControl('', [Validators.required]),
             share: new FormControl('', [Validators.required, Validators.min(0.01), Validators.max(100.00)]),
         });
     }
@@ -71,6 +72,7 @@ export class NomineeFormComponent implements OnInit, AfterViewInit {
                 middle: HelperService.toTrimOrNull(this.mainFormGroupControls.middleName.value),
                 last: HelperService.toTrim(this.mainFormGroupControls.lastName.value),
             },
+            relation: this.mainFormGroupControls.relation.value,
             share: this.mainFormGroupControls.share.value,
         };
 
